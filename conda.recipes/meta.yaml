@@ -1,0 +1,41 @@
+{% set version = '1.0.0' %}
+
+package:
+  name: ssw
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/iossifovlab/ssw.git
+  git_depth: 1
+  
+build:
+  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .
+  noarch: generic
+  number: 0 
+  string: ssw
+  binary_relocation: False
+  run_exports:
+    strong:
+      - libssw
+  
+requirements:  
+  build:
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - cmake
+    - make  # [unix]requirements:  
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - six
+    
+about:
+  home: https://github.com/iossifovlab/ssw
+  summary: A Python Wrapper for the SIMD Smith-Waterman
+  license: MIT
+
+extra:
+  maintainers:
+   - yamrom
